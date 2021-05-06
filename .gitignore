@@ -1,0 +1,4 @@
+*.spec
+*.src.rpm
+*.tar.xz
+changelog
