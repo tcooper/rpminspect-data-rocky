@@ -32,10 +32,10 @@ WRKDIR="$(mktemp -d)"
 TOOLS="klist"
 
 # What dist-git interaction tool we are using, e.g. Fedora is 'fedpkg'
-VENDORPKG="rhpkg"
+VENDORPKG="fedpkg"
 
 # What package build tool is in use
-VENDORBLD="brew"
+VENDORBLD="koji"
 
 cleanup() {
     rm -rf "${WRKDIR}"
@@ -107,8 +107,8 @@ if ! klist >/dev/null 2>&1 ; then
     exit 1
 fi
 
-if ! klist | grep -q "krbtgt/REDHAT.COM@REDHAT.COM" >/dev/null 2>&1 ; then
-    echo "*** You need a REDHAT.COM Kerberos ticket" >&2
+if ! klist | grep -q "krbtgt/FEDORAPROJECT.ORG@FEDORAPROJECT.ORG" >/dev/null 2>&1 ; then
+    echo "*** You need a FEDORAPROJECT.ORG Kerberos ticket" >&2
     exit 1
 fi
 
