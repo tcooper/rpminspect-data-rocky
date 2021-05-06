@@ -63,7 +63,7 @@ Now run:
 
     make srpm
 
-Then go to GitHub and create a new release entry.  Paste the contents
+Then go to GitLab and create a new release entry.  Paste the contents
 of the 'changelog' file minus the first line for the description of
 the release.  Bind the release to the tag you just made and call it
 rpminspect-data-centos-VERSION.  Attached the tarball and detached asc
