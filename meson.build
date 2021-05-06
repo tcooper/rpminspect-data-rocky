@@ -35,7 +35,7 @@ install_subdir(
 
 # Install the configuration file
 install_data(
-    sources : 'redhat.yaml',
+    sources : 'centos.yaml',
     install_dir : get_option('datadir') + '/rpminspect'
 )
 
