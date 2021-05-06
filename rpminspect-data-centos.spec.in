@@ -1,0 +1,56 @@
+Name:           rpminspect-data-centos
+Version:        %%VERSION%%
+Release:        1%{?dist}
+Epoch:          1
+Summary:        Build deviation compliance tool data files
+Group:          Development/Tools
+License:        CC-BY-SA
+URL:            https://gitlab.com/redhat/centos-stream/ci-cd/rpminspect-data-centos
+Source0:        %%TARBALL%%
+Source1:        changelog
+
+BuildArch:      noarch
+
+BuildRequires:  meson
+
+Requires:       rpminspect >= 1.3
+
+# Used by inspections enabled in the configuration file
+Requires:       xhtml1-dtds
+Requires:       html401-dtds
+Requires:       dash
+Requires:       ksh
+Requires:       zsh
+Requires:       tcsh
+Requires:       rc
+Requires:       bash
+Requires:       annobin-annocheck
+Requires:       libabigail
+
+%description
+CentOS and CentOS Stream specific configuration file for rpminspect
+and data files used by the inspections provided by librpminspect.
+
+
+%prep
+%setup -q
+
+
+%build
+%meson
+%meson_build
+
+
+%install
+%meson_install
+
+
+%files
+%license CC-BY-SA-4.0.txt
+%doc AUTHORS README
+%{_datadir}/rpminspect
+%{_bindir}/rpminspect-centos
+
+
+%changelog
+%include %{SOURCE1}

@@ -1,0 +1,15 @@
+# rpminspect profile for Linux kernel builds
+
+---
+inspections:
+    abidiff: off
+    annocheck: off
+    desktop: off
+    dsodeps: off
+    elf: off
+    javabytecode: off
+    manpage: off
+    modularity: off
+    xml: off
+    lto: off
+    pathmigration: off

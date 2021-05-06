@@ -1,0 +1,19 @@
+# rpminspect profile for CentOS Stream 9 development
+
+---
+inspections:
+    arch: off
+    changedfiles: off
+    abidiff: off
+    patches: off
+    filesize: off
+    removedfiles: off
+    addedfiles: off
+    subpackages: off
+    lostpayload: off
+    config: off
+    kmidiff: off
+    doc: off
+    modularity: off
+    movedfiles: off
+    dsodeps: off
