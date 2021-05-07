@@ -44,7 +44,6 @@ srpm:
 	sed -e 's|%%VERSION%%|$(VER)|g' < "$(SPEC_TEMPLATE)" > "$(SPEC)"
 	sed -i -e 's|%%RPMDATE%%|$(RPMDATE)|g' "$(SPEC)"
 	sed -i -e 's|%%TARBALL%%|$(TARBALL_BASENAME).tar.xz|g' "$(SPEC)"
-	sed -i -e 's|^%setup.*$$|%setup -q -n $(TARBALL_BASENAME)|g' "$(SPEC)"
 ifeq ($(BUILDTYPE),copr)
 	sed -i -e '/^Release:/ s/1[^%]*/0.1.$(GITDATE)git$(GITHASH)/' "$(SPEC)"
 endif

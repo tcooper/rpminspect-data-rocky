@@ -7,7 +7,6 @@ Group:          Development/Tools
 License:        CC-BY-SA
 URL:            https://gitlab.com/redhat/centos-stream/ci-cd/rpminspect-data-centos
 Source0:        %%TARBALL%%
-Source1:        changelog
 
 BuildArch:      noarch
 
@@ -24,7 +23,7 @@ Requires:       zsh
 Requires:       tcsh
 Requires:       rc
 Requires:       bash
-Requires:       annobin-annocheck
+Requires:       annobin-annocheck >= 9.71
 Requires:       libabigail
 
 %description
@@ -53,4 +52,4 @@ and data files used by the inspections provided by librpminspect.
 
 
 %changelog
-%include %{SOURCE1}
+%CHANGELOG_TEXT%
