@@ -116,7 +116,10 @@ GIT_USERNAME="$(git config user.name)"
 GIT_USEREMAIL="$(git config user.email)"
 
 cd "${CWD}" || exit
-"${CWD}"/utils/mkrpmchangelog.sh > "${WRKDIR}"/newchangelog
+name="$(grep project ../meson.build | cut -d "'" -f 2)"
+version="$(grep version "${CWD}"/meson.build | head -n 1 | cut -d "'" -f 2)"
+echo "* $(date +"%a %b %d %Y") $(git config user.name) <$(git config user.email)> - ${version}-1" > "${WRKDIR}"/newchangelog
+echo "- Upgrade to ${name}-${version}" >> "${WRKDIR}"/newchangelog
 
 cd "${WRKDIR}" || exit
 ${VENDORPKG} co "${PROJECT}"
@@ -146,34 +149,25 @@ for branch in ${BRANCHES} ; do
     # add the new source archive
     ${VENDORPKG} new-sources "${TARBALL}"
 
-    # extract any changelog entries that appeared in the spec file
-    sed -n '/^%changelog/,/^%include\ \%{SOURCE1}/p' "${PROJECT}".spec | \
-        grep -vE '^(%changelog|%include)' | \
-        sed -e :a -e '/./,$!d;/^\n*$/{$d;N;};/\n$/ba' > cl
-    [ -s cl ] || rm -f cl
+    # extract downstream %changelog
+    sed -n '/^%changelog/,$p' "${PROJECT}".spec | grep -vE '^%changelog)' > existingcl
+    [ -s existingcl ] || rm -f existingcl
 
-    # update the rolling %changelog in dist-git
-    if [ -f changelog ]; then
-        if [ -f cl ]; then
-            echo >> changelog
-            cat changelog >> cl
-        else
-            mv changelog cl
-        fi
+    # delete the %changelog block
+    sed -i -n '/^%changelog/q;p' "${PROJECT}".spec
 
-        cp "${WRKDIR}"/newchangelog changelog
-        echo >> changelog
-        cat cl >> changelog
-        rm -f cl
+    # update the rolling %changelog for downstream builds
+    echo "%changelog" >> "${PROJECT}".spec
+
+    if [ -f existingcl ]; then
+        cat "${WRKDIR}"/newchangelog existingcl >> "${PROJECT}".spec
+        rm -f existingcl
     else
-        cp "${WRKDIR}"/newchangelog changelog
+        cat "${WRKDIR}"/newchangelog >> "${PROJECT}".spec
     fi
 
-    # copy in the new spec file
-    cat "${CWD}"/"${PROJECT}".spec > "${PROJECT}".spec
-
     # commit changes
-    git add sources changelog "${PROJECT}".spec
+    git add sources "${PROJECT}".spec
     ${VENDORPKG} ci -c -p -s
     git clean -d -x -f
 

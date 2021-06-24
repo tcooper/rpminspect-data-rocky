@@ -52,7 +52,10 @@ endif
 		--output='$(topdir)/$(TARBALL_BASENAME).tar' \
 		--prefix='$(TARBALL_BASENAME)/' HEAD $(topdir)
 	xz -9f $(topdir)/$(TARBALL_BASENAME).tar
-	cd $(topdir) ; $(topdir)/utils/mkrpmchangelog.sh --copr > changelog
+	sed -i -n '^%changelog/q;p' "$(SPEC)"
+	echo "%changelog" >> "$(SPEC)"
+	echo "* $$(date +"%a %b %d %Y") $(git config user.name) <$(git config user.email)> - $(VER)-1" >> "$(SPEC)"
+	echo "- $$(grep ^URL: "$(SPEC)" | head -n 1 | awk '{ print $$2; }')/commits/v$(VER)" >> "$(SPEC)"
 	rpmbuild \
 		-bs --nodeps \
 		--define "_sourcedir $(topdir)" \

@@ -2,11 +2,11 @@ Name:           rpminspect-data-centos
 Version:        %%VERSION%%
 Release:        1%{?dist}
 Epoch:          1
-Summary:        Build deviation compliance tool data files
+Summary:        Build deviation compliance tool data files for CentOS
 Group:          Development/Tools
 License:        CC-BY-SA
 URL:            https://gitlab.com/redhat/centos-stream/ci-cd/rpminspect-data-centos
-Source0:        %%TARBALL%%
+Source0:        https://gitlab.com/redhat/centos-stream/ci-cd/rpminspect-data-centos/-/archive/%%VERSION%%/%%NAME%%-%%VERSION%%.tar.gz
 
 BuildArch:      noarch
 
@@ -52,4 +52,3 @@ and data files used by the inspections provided by librpminspect.
 
 
 %changelog
-%CHANGELOG_TEXT%
