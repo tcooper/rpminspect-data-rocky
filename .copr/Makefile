@@ -54,8 +54,8 @@ endif
 	xz -9f $(topdir)/$(TARBALL_BASENAME).tar
 	sed -i -n '/^%changelog/q;p' "$(SPEC)"
 	echo "%changelog" >> "$(SPEC)"
-	echo "* $$(date +"%a %b %d %Y") $(git config user.name) <$(git config user.email)> - $(VER)-1" >> "$(SPEC)"
-	echo "- $$(grep ^URL: "$(SPEC)" | head -n 1 | awk '{ print $$2; }')/commits/v$(VER)" >> "$(SPEC)"
+	echo "* $$(date +"%a %b %d %Y") $$(git config user.name) <$$(git config user.email)> - $(VER)-1" >> "$(SPEC)"
+	echo "- $$(grep ^URL: "$(SPEC)" | head -n 1 | awk '{ print $$2; }')/commits" >> "$(SPEC)"
 	rpmbuild \
 		-bs --nodeps \
 		--define "_sourcedir $(topdir)" \

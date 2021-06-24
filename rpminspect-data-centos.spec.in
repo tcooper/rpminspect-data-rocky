@@ -6,7 +6,7 @@ Summary:        Build deviation compliance tool data files for CentOS
 Group:          Development/Tools
 License:        CC-BY-SA
 URL:            https://gitlab.com/redhat/centos-stream/ci-cd/rpminspect-data-centos
-Source0:        https://gitlab.com/redhat/centos-stream/ci-cd/rpminspect-data-centos/-/archive/%%VERSION%%/%%NAME%%-%%VERSION%%.tar.gz
+Source0:        https://gitlab.com/redhat/centos-stream/ci-cd/rpminspect-data-centos/-/archive/%%VERSION%%/%%TARBALL%%
 
 BuildArch:      noarch
 
