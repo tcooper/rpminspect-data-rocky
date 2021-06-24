@@ -154,7 +154,7 @@ for branch in ${BRANCHES} ; do
     [ -s existingcl ] || rm -f existingcl
 
     # delete the %changelog block
-    sed -i -n '/^%changelog/q;p' "${PROJECT}".spec
+    sed -n '/^%changelog/q;p' "${CWD}"/"${PROJECT}".spec > "${PROJECT}".spec
 
     # update the rolling %changelog for downstream builds
     echo "%changelog" >> "${PROJECT}".spec
