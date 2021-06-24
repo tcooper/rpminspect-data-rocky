@@ -55,7 +55,12 @@ endif
 	sed -i -n '/^%changelog/q;p' "$(SPEC)"
 	echo "%changelog" >> "$(SPEC)"
 	echo "* $$(date +"%a %b %d %Y") $$(git config user.name) <$$(git config user.email)> - $(VER)-1" >> "$(SPEC)"
+ifeq ($(BUILDTYPE),copr)
 	echo "- $$(grep ^URL: "$(SPEC)" | head -n 1 | awk '{ print $$2; }')/commits" >> "$(SPEC)"
+endif
+ifeq ($(BUILDTYPE),release)
+	echo "- Upgrade to $(PKG)-$(VER)" >> "$(SPEC)"
+endif
 	rpmbuild \
 		-bs --nodeps \
 		--define "_sourcedir $(topdir)" \
