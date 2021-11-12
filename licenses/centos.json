@@ -2990,9 +2990,9 @@
     "url": "http://www.latex-project.org/lppl/lppl-1-3a.txt"
   },
   "LaTeX Project Public License v1.0": {
-    "approved": "unknown",
-    "fedora_abbrev": "",
-    "fedora_name": "",
+    "approved": "yes",
+    "fedora_abbrev": "LPPL 1.0",
+    "fedora_name": "LaTeX Project Public License v1.0",
     "id": "291",
     "license_text": "",
     "spdx_abbrev": "LPPL-1.0",
@@ -3010,9 +3010,9 @@
     "url": "http://www.latex-project.org/lppl/lppl-1-1.txt"
   },
   "LaTeX Project Public License v1.2": {
-    "approved": "unknown",
-    "fedora_abbrev": "",
-    "fedora_name": "",
+    "approved": "yes",
+    "fedora_abbrev": "LPPL 1.2",
+    "fedora_name": "LaTeX Project Public License v1.2",
     "id": "293",
     "license_text": "",
     "spdx_abbrev": "LPPL-1.2",
@@ -3030,9 +3030,9 @@
     "url": "http://www.latex-project.org/lppl/lppl-1-3a.txt"
   },
   "LaTeX Project Public License v1.3c": {
-    "approved": "unknown",
-    "fedora_abbrev": "",
-    "fedora_name": "",
+    "approved": "yes",
+    "fedora_abbrev": "LPPL 1.3c",
+    "fedora_name": "LaTeX Project Public License v1.3c",
     "id": "295",
     "license_text": "",
     "spdx_abbrev": "LPPL-1.3c",
