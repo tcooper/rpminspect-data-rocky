@@ -13,6 +13,8 @@ Source2:        %%GPGKEYRING%%
 BuildArch:      noarch
 
 BuildRequires:  meson
+BuildRequires:  ninja-build
+BuildRequires:  gnupg2
 
 Requires:       rpminspect >= 1.7
 

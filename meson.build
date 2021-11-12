@@ -1,5 +1,5 @@
 project('rpminspect-data-centos',
-        version : '1.0',
+        version : '1.1',
         license : 'CC-BY-SA-4.0',
         meson_version : '>=0.47.0')
 
