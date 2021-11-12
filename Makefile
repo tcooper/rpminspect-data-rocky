@@ -33,7 +33,7 @@ release:
 	$(topdir)/utils/release.sh -t -p
 
 announce:
-	@git log --reverse --pretty=format:%s "$(shell git tag -l | tail -n 1)"..HEAD 2>/dev/null | sed -e 's|^|* |g'
+	@git log --reverse --pretty=format:%s "$(shell git tag -l | tail -n 1)"..HEAD 2>/dev/null | grep -v "^Merge branch" | sed -e 's|^|* |g'
 	@echo
 
 koji: srpm

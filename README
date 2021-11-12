@@ -54,7 +54,7 @@ tag for the release.  Then update your fork of the repo and continue:
 
 [ ] make clean
 
-[ ] make release
+[ ] git checkout -b vX.Y vX.Y
 
 [ ] make srpm
 
