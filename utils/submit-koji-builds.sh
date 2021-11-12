@@ -2,7 +2,7 @@
 #
 # Build new releases in Koji
 #
-# Copyright (C) 2019 David Cantrell <david.l.cantrell@gmail.com>
+# Copyright © 2019 David Cantrell <david.l.cantrell@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -33,9 +33,7 @@ TOOLS="klist"
 
 # What dist-git interaction tool we are using, e.g. Fedora is 'fedpkg'
 VENDORPKG="fedpkg"
-
-# What package build tool is in use
-VENDORBLD="koji"
+VENDORKOJI="koji"
 
 cleanup() {
     rm -rf "${WRKDIR}"
@@ -44,7 +42,7 @@ cleanup() {
 trap cleanup EXIT
 
 # Verify specific tools are available
-for tool in ${TOOLS} ${VENDORPKG} ${VENDORBLD} ; do
+for tool in ${TOOLS} ${VENDORPKG} ${VENDORKOJI} ; do
     ${tool} >/dev/null 2>&1
     if [ $? -eq 127 ]; then
         echo "*** Missing '${tool}', perhaps 'yum install -y /usr/bin/${tool}'" >&2
@@ -102,12 +100,14 @@ PROJECT="$1"
 shift
 
 # Need a krb5 ticket
-if ! klist >/dev/null 2>&1 ; then
+klist >/dev/null 2>&1
+if [ $? -eq 1 ]; then
     echo "*** You lack an active Kerberos ticket" >&2
     exit 1
 fi
 
-if ! klist | grep -q "krbtgt/FEDORAPROJECT.ORG@FEDORAPROJECT.ORG" >/dev/null 2>&1 ; then
+klist | grep -q "krbtgt/FEDORAPROJECT.ORG@FEDORAPROJECT.ORG" >/dev/null 2>&1
+if [ $? -eq 1 ]; then
     echo "*** You need a FEDORAPROJECT.ORG Kerberos ticket" >&2
     exit 1
 fi
@@ -116,60 +116,65 @@ GIT_USERNAME="$(git config user.name)"
 GIT_USEREMAIL="$(git config user.email)"
 
 cd "${CWD}" || exit
-name="$(grep project ../meson.build | cut -d "'" -f 2)"
-version="$(grep version "${CWD}"/meson.build | head -n 1 | cut -d "'" -f 2)"
-echo "* $(date +"%a %b %d %Y") $(git config user.name) <$(git config user.email)> - ${version}-1" > "${WRKDIR}"/newchangelog
-echo "- Upgrade to ${name}-${version}" >> "${WRKDIR}"/newchangelog
 
 cd "${WRKDIR}" || exit
 ${VENDORPKG} co "${PROJECT}"
 cd "${PROJECT}" || exit
-git config user.name "${GIT_USERNAME}"
-git config user.email "${GIT_USEREMAIL}"
 
 # Allow the calling environment to override the list of dist-git branches
 if [ -z "${BRANCHES}" ]; then
-    BRANCHES="$(git branch -r | grep -vE "(HEAD)" | cut -d '/' -f 2 | sort | xargs)"
+    BRANCHES="$(git branch -r | grep -vE "(HEAD|playground|main)" | cut -d '/' -f 2 | sort | xargs)"
 fi
 
 for branch in ${BRANCHES} ; do
-    # skip this branch if there is no build target
-    if ! ${VENDORBLD} list-targets | grep -q "${branch}" >/dev/null 2>&1 ; then
-        echo "*** skipping branch ${branch} because there are no ${VENDORBLD} build targets"
-        continue
+    git clean -dxf
+    git config user.name "${GIT_USERNAME}"
+    git config user.email "${GIT_USEREMAIL}"
+
+    # skip this branch if we lack build targets
+    if [ ! "${branch}" = "rawhide" ]; then
+        if ! ${VENDORKOJI} list-targets --name="${branch}-candidate" >/dev/null 2>&1 ; then
+            echo "*** Skipping ${branch} because there is no longer a ${VENDORKOJI} target"
+            continue
+        fi
     fi
 
-    # clean it
-    git clean -d -x -f
-
     # make sure we are on the right branch
-    ${VENDORPKG} switch-branch ${branch}
+    ${VENDORPKG} switch-branch "${branch}"
     git pull
 
     # add the new source archive
-    ${VENDORPKG} new-sources "${TARBALL}"
+    ${VENDORPKG} new-sources "${TARBALL}" "${TARBALL_ASC}"
 
-    # extract downstream %changelog
-    sed -n '/^%changelog/,$p' "${PROJECT}".spec | grep -vE '^%changelog)' > existingcl
-    [ -s existingcl ] || rm -f existingcl
+    # save current changelog
+    pos=$(grep -n '^%changelog' "${PROJECT}".spec | cut -d ':' -f 1)
+    len=$(wc -l "${PROJECT}".spec | cut -d ' ' -f 1)
+    tail -n $((len - pos)) "${PROJECT}".spec > "${CWD}"/cl
 
-    # delete the %changelog block
-    sed -n '/^%changelog/q;p' "${CWD}"/"${PROJECT}".spec > "${PROJECT}".spec
+    # new changelog entry
+    VER="$(grep ^Version "${CWD}"/"${PROJECT}".spec | awk '{ print $2; }')"
+    REL="$(grep ^Release: "${CWD}"/"${PROJECT}".spec | awk '{ print $2; }' | cut -d '%' -f 1)"
+    echo "* $(date +"%a %b %d %Y") ${GIT_USERNAME} <${GIT_USEREMAIL}> - ${VER}-${REL}" > "${CWD}"/newcl
+    echo "- Upgrade to ${PROJECT}-${VER}" >> "${CWD}"/newcl
 
-    # update the rolling %changelog for downstream builds
-    echo "%changelog" >> "${PROJECT}".spec
+    # new spec file
+    cat "${CWD}"/"${PROJECT}".spec "${CWD}"/newcl > "${PROJECT}".spec
 
-    if [ -f existingcl ]; then
-        cat "${WRKDIR}"/newchangelog existingcl >> "${PROJECT}".spec
-        rm -f existingcl
-    else
-        cat "${WRKDIR}"/newchangelog >> "${PROJECT}".spec
+    if [ ! "$(stat -c %s "${CWD}"/cl)" = "0" ]; then
+        echo >> "${PROJECT}".spec
+        cat "${CWD}"/cl >> "${PROJECT}".spec
     fi
 
+    rm -f "${CWD}"/newcl
+    rm -f "${CWD}"/cl
+
+    # copy in gpgkey
+    cp "${CWD}"/*.gpg .
+
     # commit changes
-    git add sources "${PROJECT}".spec
-    ${VENDORPKG} ci -c -p -s
-    git clean -d -x -f
+    git add sources ./*.gpg "${PROJECT}".spec
+    ${VENDORPKG} ci -cps
+    git clean -dxf
 
     # build
     ${VENDORPKG} build --nowait

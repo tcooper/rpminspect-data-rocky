@@ -32,49 +32,70 @@ packages users may want installed.
 RELEASING (notes for the package maintainer, not ordinary users)
 ----------------------------------------------------------------
 
-Make sure everything builds cleanly.  Then start from a clean tree:
+[ ] Ensure all required MRs are merged.
 
-    git clean -d -x -f
+[ ] git clean -dxf
 
-If you have not bumped the version number for the development release,
-then do:
+[ ] git pull
 
-    make new-release
+[ ] make
 
-If you have already bumped the version number, then do:
+[ ] make check
 
-    make release
+[ ] make clean
 
-You can compare the latest tag to the version number in meson.build to
-see if you bumped it or not if you have forgotten.  For example:
+[ ] make announce > ~/newchanges
 
-    LATEST_VER="$(grep " version : " meson.build | cut -d "'" -f 2)"
-    LATEST_TAG="$(git tag -l | cut -c2- | sort -n | tail -n 1)"
+[ ] git push
 
-That's complicated, so I made it easier for you:
+Prepare a merge request for the main project and get any remaining
+changes added.  Once you do that, use the GitLab UI to create a new
+tag for the release.  Then update your fork of the repo and continue:
 
-    make did-i-bumpver
+[ ] make clean
 
-If those two strings match, you did not bump the version number during
-development so run 'make new-release'.  'make did-i-bumpver' will
-report its findings too.
+[ ] make release
 
-Now run:
+[ ] make srpm
 
-    make srpm
+[ ] Go to https://gitlab.com/redhat/centos-stream/ci-cd/rpminspect-data-centos/-/releases
+    and create a new release entry.  Title it
+    "rpminspect-data-centos-X.Y" where X.Y is the version number of
+    this new release.  Paste the contents of 'newchanges' in the
+    description box.  Upload these files to fedorapeople.org and add
+    them as external links on the release entry:
 
-Then go to GitLab and create a new release entry.  Paste the contents
-of the 'changelog' file minus the first line for the description of
-the release.  Bind the release to the tag you just made and call it
-rpminspect-data-centos-VERSION.  Attached the tarball and detached asc
-signature from the build/meson-dist/ subdirectory.
+        rpminspect-data-centos-X.Y.tar.xz
+        rpminspect-data-centos-X.Y.tar.xz.asc
 
-Lastly, do the builds in koji.  You can build for a subset of branches
-by using the BRANCHES environment variable:
+[ ] make koji
 
-    env BRANCHES="f33 epel7" make koji
+    NOTE: You may want to try each branch individually using the
+    syntax described in the 'make help' output.  By default this
+    target will submit Koji builds for all Fedora and EPEL branches in
+    the rpminspect-data-centos dist-git repo that have active build
+    targets.
 
-By default, 'make koji' will built for all branches present in the
-project that have koji build targets.
+[ ] Wait for the builds to finish.  You will receive email
+    notifications or you can watch the progress in the Koji task URL.
+    For each branch that completes (except rawhide), submit an update
+    request for that build:
 
-Ensure you have a Fedora Kerberos ticket before doing this.
+        fedpkg switch-branch BRANCH
+        git clean -dxf
+        git pull
+        fedpkg update --type enhancement --request testing \
+                      --notes "Upgrade to rpminspect-data-centos-X.Y" \
+                      --no-require-bugs --no-require-testcases
+
+    The type can be 'bugfix', 'security', 'enhancement', or
+    'newpackage'.  Generally rpminspect will be enhancement unless the
+    release only contains bug fixes (which would be typos).
+
+[ ] Update your fork of the repo, edit meson.build and increment the
+    version number.  Commit that and send a merge request to set
+    things up for the next release and Copr builds.
+
+The release is now done.  Use the text from ~/newchanges in a blog
+post about the release.  It may be a good idea to go do releases of
+the data packages now and do a combined blog post about all of them.
