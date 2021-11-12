@@ -6,7 +6,9 @@ Summary:        Build deviation compliance tool data files for CentOS
 Group:          Development/Tools
 License:        CC-BY-SA
 URL:            https://gitlab.com/redhat/centos-stream/ci-cd/rpminspect-data-centos
-Source0:        https://gitlab.com/redhat/centos-stream/ci-cd/rpminspect-data-centos/-/archive/%%VERSION%%/%%TARBALL%%
+Source0:        https://dcantrell.fedorapeople.org/rpminspect-data-centos/%{name}-%{version}.tar.xz
+Source1:        https://dcantrell.fedorapeople.org/rpminspect-data-centos/%{name}-%{version}.tar.xz.asc
+Source2:        %%GPGKEYRING%%
 
 BuildArch:      noarch
 
@@ -32,7 +34,8 @@ and data files used by the inspections provided by librpminspect.
 
 
 %prep
-%setup -q
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%autosetup
 
 
 %build
