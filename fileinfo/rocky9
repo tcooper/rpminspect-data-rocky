@@ -71,10 +71,11 @@ drwxrwsr-x	root	mailman	/var/lib/mailman/spam
 -rws--x--x	root	root	/usr/bin/chsh
 drwxrwsr-x	uuidd	uuidd	/run/uuidd
 drwxrwsr-x	uuidd	uuidd	/var/lib/libuuid
--rwsr-sr-x      tlog    tlog    /usr/bin/tlog-rec-session
+-rwsr-sr-x	tlog	tlog	/usr/bin/tlog-rec-session
 -rwsr-xr-x	root	root	/usr/sbin/grub2-set-bootflag
 -rwsr-x---	root	sssd	/usr/libexec/sssd/selinux_child
 -rwsr-x---	root	sssd	/usr/libexec/sssd/krb5_child
 -rwsr-x---	root	sssd	/usr/libexec/sssd/ldap_child
 -rwsr-x---	root	sssd	/usr/libexec/sssd/proxy_child
 -rwsr-xr-x	root	root	/usr/bin/vmware-user-suid-wrapper
+drwxrws---	root	ts-shell	/var/log/ts-shell

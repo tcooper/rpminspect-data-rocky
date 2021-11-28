@@ -1,10 +1,9 @@
-rpminspect-data-centos
+rpminspect-data-rocky
 ======================
 
-This package provides data files used by the rpminspect program on
-CentOS and CentOS Stream.  Some defaults are provided by the software,
-but the idea is that you will customize these files based on the
-products you are making.
+This package provides data files used by the rpminspect program on Rocky Linux.
+Some defaults are provided by the software, but the idea is that you will
+customize these files based on the products you are making.
 
 
 PACKAGING

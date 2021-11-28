@@ -1,4 +1,4 @@
-# CentOS 8 capabilities(7) list
+# Rocky 9 capabilities(7) list
 
 gnome-keyring                   /usr/bin/gnome-keyring-daemon   = cap_ipc_lock+ep
 httpd                           /usr/sbin/suexec                = cap_setgid,cap_setuid+ep

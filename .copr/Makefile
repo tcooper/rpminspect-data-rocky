@@ -55,7 +55,7 @@ ifeq ($(BUILDTYPE),copr)
 	sed -i -e '/^Source2:.*$$/d' "$(SPEC)"
 	sed -i -e '/^%{gpgverify}.*$$/d' "$(SPEC)"
 	echo "* $(RPMDATE) $(RPMAUTHOR) - $(VER)-$(GITDATE)git$(GITHASH)" >> "$(SPEC)"
-	echo "- Build rpminspect-data-centos-$(VER)-$(GITDATE)git$(GITHASH) snapshot" >> "$(SPEC)"
+	echo "- Build rpminspect-data-rocky-$(VER)-$(GITDATE)git$(GITHASH) snapshot" >> "$(SPEC)"
 endif
 	rm -f "$(TARBALL_BASENAME)".tar.xz.asc
 	git archive \

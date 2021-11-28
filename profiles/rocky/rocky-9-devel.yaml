@@ -1,4 +1,4 @@
-# rpminspect profile for CentOS Stream 9 development
+# rpminspect profile for Rocky 9 development
 
 ---
 inspections:
