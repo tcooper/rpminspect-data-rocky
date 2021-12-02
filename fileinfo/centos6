@@ -307,3 +307,5 @@ drwxrws---	root	ts-shell	/var/log/ts-shell
 -rwsr-xr-x	root	root	/opt/chromium-browser/chrome-sandbox
 -rwsr-xr-x	root	root	/usr/libexec/pulse/proximity-helper
 -r-s--x---	root	apache	/usr/sbin/suexec24
+drwxrwxrwt	root	root	/tmp
+drwxrwxrwt	root	root	/var/tmp

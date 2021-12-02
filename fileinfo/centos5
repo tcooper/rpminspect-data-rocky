@@ -286,3 +286,5 @@ drwxrwsr-x	uuidd	uuidd	/var/lib/libuuid
 -r-sr-s---	root	dba	/opt/apps/oracle/web/product/10.2.0/db_1/bin/oradism
 -rwsr-s--x	oracle	dba	/opt/apps/oracle/web/product/10.2.0/db_1/bin/emtgtctl2
 drwxrws---	root	ts-shell	/var/log/ts-shell
+drwxrwxrwt	root	root	/tmp
+drwxrwxrwt	root	root	/var/tmp
