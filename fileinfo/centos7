@@ -125,3 +125,5 @@ drwxrws---	root	ts-shell	/var/log/ts-shell
 -rwsr-x---	root	sssd	/usr/libexec/sssd/p11_child
 -rwsr-xr-x	root	root	/usr/libexec/cockpit-polkit
 -rwsr-x---	root	cockpit-ws	/usr/libexec/cockpit-session
+drwxrwxrwt	root	root	/tmp
+drwxrwxrwt	root	root	/var/tmp

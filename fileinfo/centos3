@@ -233,3 +233,5 @@ drwxrwsr-x	root	mailman	/var/spool/mailman/qfiles
 -rwsr-xr-x	root	root	/usr/kerberos/bin/ksu
 -rwsr-xr-x	root	root	/usr/bin/cdrecord
 -rwsr-xr-x	root	root	/usr/bin/readcd
+drwxrwxrwt	root	root	/tmp
+drwxrwxrwt	root	root	/var/tmp

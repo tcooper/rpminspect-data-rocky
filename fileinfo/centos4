@@ -236,3 +236,5 @@ drwxrwsr-x	root	mailman	/var/spool/mailman
 -rwsr-xr-x	root	root	/usr/kerberos/bin/ksu
 -rwsr-xr-x	root	root	/usr/sbin/ccreds_validate
 ---s--x---	root	stapusr	/usr/bin/staprun
+drwxrwxrwt	root	root	/tmp
+drwxrwxrwt	root	root	/var/tmp
