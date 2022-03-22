@@ -170,13 +170,13 @@ products:
     #
     # And rpminspect will match the longer ones to fc31.  By default
     # there is no product release regexp mapping enabled.
-    - centos3: ^\.el3.*$
-    - centos4: ^\.el4.*$
-    - centos5: ^\.el5.*$
-    - centos6: ^\.el6.*$
-    - centos7: ^\.el7.*$
-    - centos8: ^\.el8.*$
-    - centos9: ^\.el9.*$
+    - centos3: ^.*\.el3.*$
+    - centos4: ^.*\.el4.*$
+    - centos5: ^.*\.el5.*$
+    - centos6: ^.*\.el6.*$
+    - centos7: ^.*\.el7.*$
+    - centos8: ^.*\.el8.*$
+    - centos9: ^.*\.el9.*$
 
 macrofiles:
     # Paths to all RPM macro definitions that rpminspect should use.
