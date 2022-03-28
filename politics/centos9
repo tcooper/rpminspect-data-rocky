@@ -24,3 +24,5 @@
 #<filename pattern>  <message digest>                           <allow/deny>
 *taiwan*             *                                          deny
 *taiwan*             9365f177b159f1de3e5a8434468f545c           allow
+/usr/share/vim/vim82/lang/menu_chinese_taiwan.950.vim         1cd5abc499dcd975e5ad800e89b63e05 allow
+/usr/share/vim/vim82/lang/menu_chinese(taiwan)_taiwan.950.vim 7508374d20dace876b5ff5a8009316e0 allow
