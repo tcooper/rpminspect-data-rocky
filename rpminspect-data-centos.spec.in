@@ -27,8 +27,8 @@ Requires:       zsh
 Requires:       tcsh
 Requires:       rc
 Requires:       bash
-Requires:       annobin-annocheck >= 9.71
 Requires:       libabigail
+Requires:       /usr/bin/annocheck
 
 %description
 CentOS and CentOS Stream specific configuration file for rpminspect
