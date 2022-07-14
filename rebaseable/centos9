@@ -5,5 +5,6 @@ lorax
 lorax-templates-rhel
 microode_ctl
 pykickstart
+pyparted
 rust-coreos-installer
 virt-who
