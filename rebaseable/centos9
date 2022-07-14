@@ -1,8 +1,9 @@
 crypto-policies
 dotnet3.1
 dotnet6.0
-virt-who
-pykickstart
-lorax-templates-rhel
 lorax
+lorax-templates-rhel
+microode_ctl
+pykickstart
 rust-coreos-installer
+virt-who
