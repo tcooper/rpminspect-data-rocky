@@ -1,11 +1,7 @@
 project('rpminspect-data-centos',
-        version : '1.2',
+        version : '1.3',
         license : 'CC-BY-SA-4.0',
         meson_version : '>=0.47.0')
-
-# Perform any tests on data
-license_keys_unique = find_program('license_keys_unique.sh')
-test('license-keys-unique', license_keys_unique)
 
 # Install data files
 install_subdir(
@@ -14,10 +10,6 @@ install_subdir(
 )
 install_subdir(
     'capabilities',
-    install_dir : get_option('datadir') + '/rpminspect'
-)
-install_subdir(
-    'licenses',
     install_dir : get_option('datadir') + '/rpminspect'
 )
 install_subdir(
