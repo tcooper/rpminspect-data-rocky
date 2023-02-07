@@ -1,0 +1,29 @@
+#
+# rpminspect profile for the CentOS Hyperscale SIG
+#
+# SPDX-License-Identifier: CC-BY-SA-4.0
+#
+
+---
+koji:
+    # The root URL of the XMLRPC API provided by the Koji hub
+    hub: https://cbs.centos.org/kojihub
+
+    # The download URL for regular packages built in Koji
+    download_ursine: https://cbs.centos.org/kojifiles
+
+    # The download URL for modular packages built in Koji
+    download_mbs: https://cbs.centos.org/kojifiles
+
+metadata:
+    # Required Vendor string.  This is part of the RPM header and is
+    # the value expected in packages checked by rpminspect.
+    vendor: CentOS Hyperscale SIG
+
+    # Allowed build host subdomain.  The RPM header contains information about
+    # where the package was built.  rpminspect verifies the hostnames are in
+    # the expected subdomain listed below.
+    #
+    # This is an array of allowed subdomains.
+    buildhost_subdomain:
+        - .centos.org
