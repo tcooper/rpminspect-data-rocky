@@ -1,10 +1,9 @@
-rpminspect-data-centos
+rpminspect-data-rocky
 ======================
 
-This package provides data files used by the rpminspect program on
-CentOS and CentOS Stream.  Some defaults are provided by the software,
-but the idea is that you will customize these files based on the
-products you are making.
+This package provides data files used by the rpminspect program on Rocky Linux.
+Some defaults are provided by the software, but the idea is that you will
+customize these files based on the products you are making.
 
 
 PACKAGING
@@ -58,22 +57,22 @@ tag for the release.  Then update your fork of the repo and continue:
 
 [ ] make srpm
 
-[ ] Go to https://gitlab.com/redhat/centos-stream/ci-cd/rpminspect-data-centos/-/releases
+[ ] Go to https://github.com/tcooper/rpminspect-data-rocky/releases
     and create a new release entry.  Title it
-    "rpminspect-data-centos-X.Y" where X.Y is the version number of
+    "rpminspect-data-rocky-X.Y" where X.Y is the version number of
     this new release.  Paste the contents of 'newchanges' in the
     description box.  Upload these files to fedorapeople.org and add
     them as external links on the release entry:
 
-        rpminspect-data-centos-X.Y.tar.xz
-        rpminspect-data-centos-X.Y.tar.xz.asc
+        rpminspect-data-rocky-X.Y.tar.xz
+        rpminspect-data-rocky-X.Y.tar.xz.asc
 
 [ ] make koji
 
     NOTE: You may want to try each branch individually using the
     syntax described in the 'make help' output.  By default this
     target will submit Koji builds for all Fedora and EPEL branches in
-    the rpminspect-data-centos dist-git repo that have active build
+    the rpminspect-data-rocky dist-git repo that have active build
     targets.
 
 [ ] Wait for the builds to finish.  You will receive email
@@ -85,7 +84,7 @@ tag for the release.  Then update your fork of the repo and continue:
         git clean -dxf
         git pull
         fedpkg update --type enhancement --request testing \
-                      --notes "Upgrade to rpminspect-data-centos-X.Y" \
+                      --notes "Upgrade to rpminspect-data-rocky-X.Y" \
                       --no-require-bugs --no-require-testcases
 
     The type can be 'bugfix', 'security', 'enhancement', or

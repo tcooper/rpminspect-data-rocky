@@ -16,17 +16,17 @@ common:
     # for the [common] section).  Profiles are referred to by NAME and
     # the file would be NAME.yaml.  Any profile used at runtime must
     # exist in the profile directory.
-    profiledir: /usr/share/rpminspect/profiles/centos
+    profiledir: /usr/share/rpminspect/profiles/rocky
 
 koji:
     # The root URL of the XMLRPC API provided by the Koji hub
-    hub: http://kojihub.stream.centos.org/kojihub
+    hub: http://kojihub.rockylinux.org/kojihub
 
     # The download URL for regular packages built in Koji
-    download_ursine: http://kojihub.stream.centos.org/kojifiles
+    download_ursine: http://kojihub.rockylinux.org/kojifiles
 
     # The download URL for modular packages built in Koji
-    download_mbs: http://kojihub.stream.centos.org/kojifiles
+    download_mbs: http://kojihub.rockylinux.org/kojifiles
 
 commands:
     # External helper commands used by rpminspect.  Defaults are noted.
@@ -174,13 +174,8 @@ products:
     #
     # And rpminspect will match the longer ones to fc31.  By default
     # there is no product release regexp mapping enabled.
-    - centos3: ^.*\.el3.*$
-    - centos4: ^.*\.el4.*$
-    - centos5: ^.*\.el5.*$
-    - centos6: ^.*\.el6.*$
-    - centos7: ^.*\.el7.*$
-    - centos8: ^.*\.el8.*$
-    - centos9: ^.*\.el9.*$
+    - rocky8: ^.*\.el8.*$
+    - rocky9: ^.*\.el9.*$
 
 macrofiles:
     # Paths to all RPM macro definitions that rpminspect should use.
@@ -243,7 +238,7 @@ badwords:
 metadata:
     # Required Vendor string.  This is part of the RPM header and is
     # the value expected in packages checked by rpminspect.
-    vendor: CentOS
+    vendor: Rocky
 
     # Allowed build host subdomain.  The RPM header contains information about
     # where the package was built.  rpminspect verifies the hostnames are in
@@ -251,7 +246,7 @@ metadata:
     #
     # This is an array of allowed subdomains.
     buildhost_subdomain:
-        - .redhat.com
+        - .rockylinux.org
 
 elf:
     # File paths to include in or exclude from specific tests. Each
@@ -547,10 +542,8 @@ javabytecode:
     # If the product release string is not found, the javabytecode
     # test will use the default entry.  You can have as many entries
     # as you want in this section.
-    - centos6: 49
-    - centos7: 51
-    - centos8: 52
-    - centos9: 55
+    - rocky8: 52
+    - rocky9: 55
     - default: 43
 
     # Optional list of glob(7) specifications to match files to ignore

@@ -1,4 +1,4 @@
-project('rpminspect-data-centos',
+project('rpminspect-data-rocky',
         version : '1.3',
         license : 'CC-BY-SA-4.0',
         meson_version : '>=0.47.0')
@@ -40,13 +40,13 @@ install_subdir(
 
 # Install the configuration file
 install_data(
-    sources : 'centos.yaml',
+    sources : 'rocky.yaml',
     install_dir : get_option('datadir') + '/rpminspect'
 )
 
 # Install scripts
 install_data(
-    sources : 'rpminspect-centos',
+    sources : 'rpminspect-rocky',
     install_dir : get_option('bindir'),
     install_mode : 'rwxrwxrwx'
 )

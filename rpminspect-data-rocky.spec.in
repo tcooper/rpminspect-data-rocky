@@ -1,13 +1,13 @@
-Name:           rpminspect-data-centos
+Name:           rpminspect-data-rocky
 Version:        %%VERSION%%
 Release:        1%{?dist}
 Epoch:          1
-Summary:        Build deviation compliance tool data files for CentOS
+Summary:        Build deviation compliance tool data files for Rocky Linux
 Group:          Development/Tools
 License:        CC-BY-SA
-URL:            https://gitlab.com/redhat/centos-stream/ci-cd/rpminspect-data-centos
-Source0:        https://dcantrell.fedorapeople.org/rpminspect-data-centos/%{name}-%{version}.tar.xz
-Source1:        https://dcantrell.fedorapeople.org/rpminspect-data-centos/%{name}-%{version}.tar.xz.asc
+URL:            https://github.com/tcooper/rpminspect-data-rocky
+Source0:        https://github.com/tcooper/rpminspect-data-rocky/%{name}-%{version}.tar.xz
+Source1:        https://github.com/tcooper/rpminspect-data-rocky/%{name}-%{version}.tar.xz.asc
 Source2:        %%GPGKEYRING%%
 
 BuildArch:      noarch
@@ -32,8 +32,8 @@ Requires:       libabigail
 Requires:       /usr/bin/annocheck
 
 %description
-CentOS and CentOS Stream specific configuration file for rpminspect
-and data files used by the inspections provided by librpminspect.
+Rocky Linux specific configuration file for rpminspect and data files used by
+the inspections provided by librpminspect.
 
 
 %prep
@@ -54,7 +54,9 @@ and data files used by the inspections provided by librpminspect.
 %license CC-BY-SA-4.0.txt
 %doc AUTHORS README
 %{_datadir}/rpminspect
-%{_bindir}/rpminspect-centos
+%{_bindir}/rpminspect-rocky
 
 
 %changelog
+* Mon Mar 15 2023 Trevor Cooper <tcooper@rockylinux.org> - 1.10-1
+- Debranding for Rocky Linux
